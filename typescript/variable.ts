@@ -31,7 +31,7 @@ var cobaCoba = 345; // v
 
 // ---=== REASSIGN ===---
 
-var cobaSatu = "TEST";
+var cobaSatu: string = "TEST";
 let cobaDua = "TEST";
 const cobaTiga = "TEST";
 
