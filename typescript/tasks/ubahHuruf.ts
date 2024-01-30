@@ -3,7 +3,7 @@
  * @param {string} sentence Kata yang ingin kita enkripsi.
  * @returns string
  */
-function changeWord(sentence) {
+function ubahHuruf(sentence: string): string {
   // your code here
   let result = "";
 
@@ -27,8 +27,8 @@ function changeWord(sentence) {
   return result;
 }
 
-console.log(changeWord("SEPULSA OKE")); // COZEVCK YUO
-console.log(changeWord("ALTERRA ACADEMY")); // KVDOBBK KMKNOWI
-console.log(changeWord("INDONESIA")); // SXNYXOCSK
-console.log(changeWord("GOLANG")); // QYVKXQ
-console.log(changeWord("PROGRAMMER")); // ZBYQBKWWOB
+console.log(ubahHuruf("SEPULSA OKE")); // COZEVCK YUO
+console.log(ubahHuruf("ALTERRA ACADEMY")); // KVDOBBK KMKNOWI
+console.log(ubahHuruf("INDONESIA")); // SXNYXOCSK
+console.log(ubahHuruf("GOLANG")); // QYVKXQ
+console.log(ubahHuruf("PROGRAMMER")); // ZBYQBKWWOB
