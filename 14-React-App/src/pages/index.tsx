@@ -1,24 +1,41 @@
-import { Button } from "@/components/ui/button";
-import Layout from "@/components/trial/layout";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+
+import Layout from "@/components/layout";
+
+import { getBooks } from "@/utils/apis/books/api";
+import { IBook } from "@/utils/apis/books/type";
+import BookCard from "@/components/book-card";
 
 const Homepage = () => {
+  const [datas, setDatas] = useState<IBook[]>([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      const result = await getBooks();
+      setDatas(result.payload.datas);
+    } catch (error) {
+      toast((error as Error).message.toString());
+    }
+  }
+
   return (
-    <div className="h-screen w-full">
-      <div
-        className="h-1/2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2021/10/26071254/mengenal-fakta-menarik-seputar-kucing-anggora-turki-halodoc.jpg.webp)",
-        }}
-      >
-        {Array.from({ length: 5 }).map((value) => (
-          <p className="border">TEST</p>
+    <Layout>
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        {datas.map((book) => (
+          <BookCard
+            key={book.id}
+            title={book.title}
+            cover_image={book.cover_image}
+            author={book.author}
+          />
         ))}
       </div>
-      <div className="flex flex-col md:flex-row ">
-        <p>Gambar Kucing</p>
-      </div>
-    </div>
+    </Layout>
   );
 };
 
