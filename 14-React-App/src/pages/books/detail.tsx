@@ -16,8 +16,9 @@ const DetailBook = () => {
 
   async function fetchData() {
     try {
-      const result = await getDetailBook();
-      setData(result.payload.datas);
+      // TODO: Change 4 to be using path param
+      const result = await getDetailBook("4");
+      setData(result.payload);
     } catch (error) {
       toast((error as Error).message.toString());
     }

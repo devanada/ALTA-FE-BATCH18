@@ -1,40 +1,38 @@
 import { IPayloadPagination, IResponse } from "@/utils/types/api";
+import axiosWithConfig from "../axiosWithConfig";
 import { IBook } from "./type";
-import { booksSampleData } from "./sample-data";
 
 export const getBooks = async () => {
-  return new Promise<IResponse<IPayloadPagination<IBook[]>>>((resolve) => {
-    setTimeout(() => {
-      const response: IResponse<IPayloadPagination<IBook[]>> = {
-        message: "Success get books",
-        payload: {
-          totalItems: 10,
-          datas: booksSampleData,
-          totalPages: 1,
-          currentPage: 1,
-        },
-      };
+  try {
+    const response = await axiosWithConfig.get("/books");
 
-      resolve(response);
-    }, 1000);
-  });
+    return response.data as IResponse<IPayloadPagination<IBook[]>>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
 };
 
-// TODO: Add path param
-export const getDetailBook = async () => {
-  return new Promise<IResponse<IPayloadPagination<IBook>>>((resolve) => {
-    setTimeout(() => {
-      const response: IResponse<IPayloadPagination<IBook>> = {
-        message: "Success get books",
-        payload: {
-          totalItems: 10,
-          datas: booksSampleData[0],
-          totalPages: 1,
-          currentPage: 1,
-        },
-      };
+export const getDetailBook = async (id_book: string) => {
+  try {
+    const response = await axiosWithConfig.get(`/books/${id_book}`);
 
-      resolve(response);
-    }, 1000);
-  });
+    return response.data as IResponse<IBook>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+export const addNewBook = async (body: any) => {
+  try {
+    const formData = new FormData();
+
+    let key: keyof typeof body;
+    for (key in body) {
+    }
+    // TODO: Finish this function when admin page is exist
+
+    const response = await axiosWithConfig.post("/books", formData);
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
 };
