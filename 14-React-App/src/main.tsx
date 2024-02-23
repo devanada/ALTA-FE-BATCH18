@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "@/pages/auth/register";
+import App from "@/pages/user/edit-profile";
 import "@/styles/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

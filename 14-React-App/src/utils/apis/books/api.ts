@@ -1,6 +1,7 @@
 import { IPayloadPagination, IResponse } from "@/utils/types/api";
 import axiosWithConfig from "../axiosWithConfig";
-import { IBook } from "./type";
+import { BookSchema, IBook } from "./type";
+import { checkProperty, valueFormatData } from "@/utils/formatter";
 
 export const getBooks = async () => {
   try {
@@ -22,16 +23,47 @@ export const getDetailBook = async (id_book: string) => {
   }
 };
 
-export const addNewBook = async (body: any) => {
+export const addNewBook = async (body: BookSchema) => {
   try {
     const formData = new FormData();
 
     let key: keyof typeof body;
     for (key in body) {
+      if (checkProperty(body[key])) {
+        formData.append(key, valueFormatData(body[key]));
+      }
     }
-    // TODO: Finish this function when admin page is exist
 
-    const response = await axiosWithConfig.post("/books", formData);
+    const response = await axiosWithConfig.post("/books", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data as IResponse;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+export const updateBook = async (body: BookSchema, id_book: number) => {
+  try {
+    const formData = new FormData();
+
+    let key: keyof typeof body;
+    for (key in body) {
+      if (checkProperty(body[key])) {
+        formData.append(key, valueFormatData(body[key]));
+      }
+    }
+
+    const response = await axiosWithConfig.put(`/books/${id_book}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data as IResponse;
   } catch (error: any) {
     throw Error(error.response.data.message);
   }
