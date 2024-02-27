@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -8,6 +9,8 @@ import { getDetailBook } from "@/utils/apis/books/api";
 import { IBook } from "@/utils/apis/books/type";
 
 const DetailBook = () => {
+  const params = useParams();
+
   const [data, setData] = useState<IBook>();
 
   useEffect(() => {
@@ -16,8 +19,7 @@ const DetailBook = () => {
 
   async function fetchData() {
     try {
-      // TODO: Change 4 to be using path param
-      const result = await getDetailBook("4");
+      const result = await getDetailBook(params.id_book!);
       setData(result.payload);
     } catch (error) {
       toast((error as Error).message.toString());

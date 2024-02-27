@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 
@@ -5,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -15,6 +15,8 @@ import Layout from "@/components/layout";
 import { userLogin } from "@/utils/apis/auth/api";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,7 +31,10 @@ const Login = () => {
     try {
       const result = await userLogin(body);
 
+      localStorage.setItem("token", result.payload.token);
+
       toast(result.message);
+      navigate("/");
     } catch (error) {
       toast((error as Error).message.toString());
     }
@@ -60,7 +65,22 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit">Submit</Button>
+            <div className="flex flex-col mt-20 gap-4">
+              <Button type="submit">Submit</Button>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">
+                    Or
+                  </span>
+                </div>
+              </div>
+              <Button type="button" variant="secondary" asChild>
+                <Link to="/register">Register</Link>
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

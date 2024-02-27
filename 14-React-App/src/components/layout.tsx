@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
 
-import { Toaster } from "@/components/ui/sonner";
-
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -25,7 +23,6 @@ const Layout = (props: Props) => {
       >
         {children}
       </div>
-      <Toaster />
     </div>
   );
 };

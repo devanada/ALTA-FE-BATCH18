@@ -27,7 +27,7 @@ const columns: ColumnDef<IBook>[] = [
   },
 ];
 
-const Index = () => {
+const Dashboard = () => {
   const [datas, setDatas] = useState<IBook[]>([]);
 
   useEffect(() => {
@@ -49,4 +49,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Dashboard;

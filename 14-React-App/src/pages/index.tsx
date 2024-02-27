@@ -32,6 +32,7 @@ const Homepage = () => {
             title={book.title}
             cover_image={book.cover_image}
             author={book.author}
+            id={book.id}
           />
         ))}
       </div>

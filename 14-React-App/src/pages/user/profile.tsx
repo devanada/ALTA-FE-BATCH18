@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-
-import Layout from "@/components/layout";
-import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
+import Layout from "@/components/layout";
+
 import { getProfile } from "@/utils/apis/user/api";
-import { setAxiosConfig } from "@/utils/apis/axiosWithConfig";
 import { IProfile } from "@/utils/apis/user/type";
 
 const Profile = () => {
@@ -15,10 +16,6 @@ const Profile = () => {
   }, []);
 
   async function fetchData() {
-    setAxiosConfig(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImRldmFuYWRhQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODY5MjQ0NCwiZXhwIjoxNzA4Njk5NjQ0fQ.XIYKjtZQYVrWcxcVUz0ieufI85tUkCNxY0o8PnTGdiI"
-    );
-
     try {
       const result = await getProfile();
 
@@ -38,7 +35,9 @@ const Profile = () => {
             alt={data.full_name}
           />
           <p>{data.full_name}</p>
-          <Button>Edit Profile</Button>
+          <Button asChild>
+            <Link to="/profile/edit">Edit Profile</Link>
+          </Button>
         </div>
       ) : (
         <p>Loading</p>

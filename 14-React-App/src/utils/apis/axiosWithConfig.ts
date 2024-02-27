@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let bearerToken = "";
+let bearerToken = localStorage.getItem("token");
 const axiosWithConfig = axios.create();
 
 export const setAxiosConfig = (token: string) => {
@@ -9,7 +9,9 @@ export const setAxiosConfig = (token: string) => {
 
 axiosWithConfig.interceptors.request.use((axiosConfig) => {
   axiosConfig.baseURL = "https://hells-kitchen.onrender.com/api/v1";
-  axiosConfig.headers.Authorization = `Bearer ${bearerToken}`;
+  if (bearerToken) {
+    axiosConfig.headers.Authorization = `Bearer ${bearerToken}`;
+  }
 
   return axiosConfig;
 });

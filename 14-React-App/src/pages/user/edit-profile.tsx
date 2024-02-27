@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import {
@@ -21,10 +22,11 @@ import {
   getProfile,
   updateProfile,
 } from "@/utils/apis/user/api";
-import { setAxiosConfig } from "@/utils/apis/axiosWithConfig";
 import { IProfile } from "@/utils/apis/user/type";
 
 const EditProfile = () => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState<IProfile>();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,11 +39,6 @@ const EditProfile = () => {
   }, []);
 
   async function fetchData() {
-    // TODO: Change this when storage is implemented
-    setAxiosConfig(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImRldmFuYWRhQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODY5MjQ0NCwiZXhwIjoxNzA4Njk5NjQ0fQ.XIYKjtZQYVrWcxcVUz0ieufI85tUkCNxY0o8PnTGdiI"
-    );
-
     try {
       const { payload } = await getProfile();
 
@@ -70,6 +67,7 @@ const EditProfile = () => {
       const result = await updateProfile(body);
 
       toast(result.message);
+      navigate("/profile");
     } catch (error) {
       toast((error as Error).message);
     }
@@ -80,6 +78,8 @@ const EditProfile = () => {
       const result = await deleteProfile();
 
       toast(result.message);
+      localStorage.removeItem("token");
+      navigate("/login");
     } catch (error) {
       toast((error as Error).message);
     }
