@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import Navbar from "./navbar";
+
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -13,7 +15,7 @@ const Layout = (props: Props) => {
 
   return (
     <div className="w-full h-dvh bg-white overflow-auto flex flex-col">
-      <nav>Test</nav>
+      <Navbar />
       <div
         className={cn(
           "container grow py-4 px-8 flex flex-col",

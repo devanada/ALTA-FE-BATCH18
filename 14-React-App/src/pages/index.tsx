@@ -10,6 +10,28 @@ import BookCard from "@/components/book-card";
 const Homepage = () => {
   const [datas, setDatas] = useState<IBook[]>([]);
 
+  /**
+   * Akan dijalankan hanya sekali saja pada saat komponen telah dimuat (componentDidMount)
+   * useEffect(() => {
+   * ...
+   * }, [])
+   */
+
+  /**
+   * Akan dijalankan tidak hanya pada saat komponen telah dimuat saja, tapi melainkan dijalankan setiap kali suatu variabel yang ada didalam dependencies [] berubah nilainya (componentDidMount + componentWillUpdate)
+   * useEffect(() => {
+   * ...
+   * }, [state])
+   */
+
+  /**
+   * Dia akan selalu jalan pada saat pengguna berada di halaman/page tersebut sampai komponen tersebut dihancurkan/dihapus dari DOM (componentDidMount + componentWillUpdate + componentWillUnmount)
+   * useEffect(() => {
+   * ...
+   * return () => {}
+   * })
+   */
+
   useEffect(() => {
     fetchData();
   }, []);
