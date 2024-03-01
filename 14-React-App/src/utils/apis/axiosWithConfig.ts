@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let bearerToken = localStorage.getItem("token");
+let bearerToken = "";
 const axiosWithConfig = axios.create();
 
 export const setAxiosConfig = (token: string) => {

@@ -18,8 +18,10 @@ import Layout from "@/components/layout";
 
 import { userLogin } from "@/utils/apis/auth/api";
 import { LoginSchema, loginSchema } from "@/utils/apis/auth/type";
+import { useToken } from "@/utils/contexts/token";
 
 const Login = () => {
+  const { changeToken } = useToken();
   const navigate = useNavigate();
 
   const form = useForm<LoginSchema>({
@@ -34,7 +36,7 @@ const Login = () => {
     try {
       const result = await userLogin(data);
 
-      localStorage.setItem("token", result.payload.token);
+      changeToken(result.payload.token);
 
       toast(result.message);
       navigate("/");

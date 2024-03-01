@@ -1,10 +1,11 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 
+import { useToken } from "@/utils/contexts/token";
+
 const ProtectedRoutes = () => {
   const { pathname } = useLocation();
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const { token, user } = useToken();
 
   const authProtected = ["/login", "/register"];
   const protectedByToken = [
@@ -27,11 +28,11 @@ const ProtectedRoutes = () => {
     }
 
     if (adminProtected.includes(pathname)) {
-      if (role === "user") return <Navigate to="/" />;
+      if (user?.role === "user") return <Navigate to="/" />;
     }
 
     if (userProtected.includes(pathname)) {
-      if (role === "admin") return <Navigate to="/" />;
+      if (user?.role === "admin") return <Navigate to="/" />;
     }
   }
 
