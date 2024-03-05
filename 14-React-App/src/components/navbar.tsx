@@ -12,6 +12,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useToken } from "@/utils/contexts/token";
+import Cart from "./cart";
 
 const Navbar = () => {
   const { changeToken, token, user } = useToken();
@@ -30,6 +31,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex gap-4 items-center justify-end h-full w-full">
+          <Cart />
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>

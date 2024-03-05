@@ -10,7 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CustomFormField } from "@/components/custom-formfield";
+import {
+  CustomFormField,
+  CustomFormDatePicker,
+} from "@/components/custom-formfield";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form } from "@/components/ui/form";
@@ -87,6 +90,12 @@ const Login = () => {
                   />
                 )}
               </CustomFormField>
+              {/* <CustomFormDatePicker
+                control={form.control}
+                name="email"
+                label="Borrow Date"
+                placeholder="Select Borrow Date"
+              /> */}
               <div className="flex flex-col mt-20 gap-4">
                 <Button type="submit">Submit</Button>
                 <div className="relative">
