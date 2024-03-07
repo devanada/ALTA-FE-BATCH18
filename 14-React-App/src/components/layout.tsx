@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { useLoaderData } from "react-router-dom";
+import { ReactNode, useEffect } from "react";
 
 import Navbar from "./navbar";
 
@@ -12,6 +13,11 @@ interface Props {
 
 const Layout = (props: Props) => {
   const { children, centerX, centerY } = props;
+  const loader = useLoaderData();
+
+  useEffect(() => {
+    document.title = loader as string;
+  }, []);
 
   return (
     <div className="w-full h-dvh bg-white overflow-auto flex flex-col">
