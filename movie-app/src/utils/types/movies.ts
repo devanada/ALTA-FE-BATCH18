@@ -37,7 +37,7 @@ export interface IMovie {
     cast: ICast[];
     crew: ICrew[];
   };
-  similar: IPaginationData<IOtherMovie[]>;
+  similar?: IPaginationData<IOtherMovie[]>;
 }
 
 interface IMovieGenre {
