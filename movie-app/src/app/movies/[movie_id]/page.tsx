@@ -6,12 +6,14 @@ import dayjs from "dayjs";
 
 import { CarouselItem } from "@/components/ui/carousel";
 import { badgeVariants } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import MovieCard from "@/components/movie-card";
 import Carousel from "@/components/carousel";
 import Heading from "@/components/heading";
+import FavoriteBtn from "./favorite-btn";
+import WatchlistBtn from "./watchlist-btn";
 
 import { getDetailMovie } from "@/utils/actions/movies";
+import { postFavoriteMovie, postWatchlistMovie } from "@/utils/actions/user";
 
 interface Props {
   params: { movie_id: string };
@@ -29,6 +31,42 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const detail = await getDetailMovie(params.movie_id);
+
+  async function handleFavorite() {
+    "use server";
+
+    try {
+      const payload = {
+        media_type: "movie",
+        media_id: +params.movie_id,
+        favorite: true,
+      };
+
+      await postFavoriteMovie(payload);
+
+      return { message: "Success added to favorite" };
+    } catch (error) {
+      return { message: "Failed to add to favorite" };
+    }
+  }
+
+  async function handleWatchlist() {
+    "use server";
+
+    try {
+      const payload = {
+        media_type: "movie",
+        media_id: +params.movie_id,
+        watchlist: true,
+      };
+
+      await postWatchlistMovie(payload);
+
+      return { message: "Success added to watchlist" };
+    } catch (error) {
+      return { message: "Failed to add to watchlist" };
+    }
+  }
 
   return (
     <>
@@ -66,8 +104,8 @@ export default async function Page({ params }: Props) {
             height={500}
             priority
           />
-          <Button>Add to watchlist</Button>
-          <Button>Add to favorite</Button>
+          <WatchlistBtn actionFn={handleWatchlist} />
+          <FavoriteBtn actionFn={handleFavorite} />
         </div>
         <div className="flex flex-col w-full md:w-2/3 lg:w-4/5">
           <ul className="[&>*]:flex [&>*]:gap-3 [&_span]:font-bold flex flex-col gap-3">

@@ -45,7 +45,7 @@ const Navbar = async () => {
               {sessionID && sessionID?.value.length !== 0 ? (
                 <>
                   <DropdownMenuItem asChild>
-                    <Link href="/my-favorite">My Favorite</Link>
+                    <Link href="/my-favorites">My Favorite</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/my-watchlist">Watchlist</Link>
